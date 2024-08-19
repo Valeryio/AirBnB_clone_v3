@@ -66,6 +66,22 @@ class DBStorage:
         else:
             return None
 
+    def count(self, cls=None):
+        """Returns the number of objects in storage matching
+        the given class. If no class is passed, returns the
+        count of all objects in storage."""
+        objects = storage.all()
+        obj_count = 0
+
+        if cls is None:
+            return len(objects)
+
+        for key, value in objects.items():
+            if type(value) == cls:
+                obj_count += 1
+
+        return obj_count
+
 
     def save(self):
         """commit all changes of the current database session"""
