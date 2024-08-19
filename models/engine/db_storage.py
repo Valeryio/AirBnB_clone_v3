@@ -55,6 +55,18 @@ class DBStorage:
         """add the object to the current database session"""
         self.__session.add(obj)
 
+    def get(self, cls, id):
+        """Returns the object based on the class and its ID,
+        or None if not found"""
+        statement = select(cls).where(cls.id == id)
+        result = self.__session.scalars(statement)
+        # print(result)
+        if result != None:
+            return result
+        else:
+            return None
+
+
     def save(self):
         """commit all changes of the current database session"""
         self.__session.commit()
