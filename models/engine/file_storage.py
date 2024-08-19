@@ -50,7 +50,7 @@ class FileStorage:
         if cls == None:
             return len(self.__objects)
         else:
-            obj_found
+            obj_found = 0
             for i in self.__objects.values():
                 if type(i) == cls:
                     obj_found += 1
