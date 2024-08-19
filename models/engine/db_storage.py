@@ -13,6 +13,7 @@ from models.state import State
 from models.user import User
 from os import getenv
 import sqlalchemy
+from sqlalchemy import *
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -60,9 +61,14 @@ class DBStorage:
         or None if not found"""
         statement = select(cls).where(cls.id == id)
         result = self.__session.scalars(statement)
-        # print(result)
-        if result != None:
-            return result
+
+        # dir(result)
+
+        if result is not None:
+            try:
+                return list(result)[0]
+            except IndexError:
+                return None
         else:
             return None
 
@@ -70,7 +76,7 @@ class DBStorage:
         """Returns the number of objects in storage matching
         the given class. If no class is passed, returns the
         count of all objects in storage."""
-        objects = storage.all()
+        objects = self.all()
         obj_count = 0
 
         if cls is None:
