@@ -37,7 +37,6 @@ class FileStorage:
     def get(self, cls, id):
         """Returns the object based on the class and its ID,
         or None if not found"""
-
         for key, value in self.__objects.items():
             if type(value) is cls and value.id == id:
                 return value
